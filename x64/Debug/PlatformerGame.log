@@ -1,5 +1,7 @@
-﻿  Game.cpp
-  PlatformerGame.cpp
-  Player.cpp
-  Создание кода...
+﻿  Player.cpp
+D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(46,35): warning C4244: +=: преобразование "float" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
   PlatformerGame.vcxproj -> D:\project c++\testSFML\PlatformerGame\x64\Debug\PlatformerGame.exe
