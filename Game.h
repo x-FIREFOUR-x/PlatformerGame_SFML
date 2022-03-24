@@ -22,6 +22,7 @@ public:
 	void updatePlayer();
 	void update();
 
+	void renderPlayer();
 	void render();
 };
 

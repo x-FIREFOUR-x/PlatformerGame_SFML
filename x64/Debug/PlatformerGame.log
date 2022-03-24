@@ -1,5 +1,5 @@
 ﻿  Game.cpp
   PlatformerGame.cpp
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\PlatformerGame.cpp(8,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Player.cpp
   Создание кода...
   PlatformerGame.vcxproj -> D:\project c++\testSFML\PlatformerGame\x64\Debug\PlatformerGame.exe
