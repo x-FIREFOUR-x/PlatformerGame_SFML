@@ -1,20 +1,20 @@
 ﻿  Player.cpp
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(52,29): warning C4244: =: преобразование "float" в "T", возможна потеря данных
+D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(82,29): warning C4244: =: преобразование "float" в "T", возможна потеря данных
           with
           [
               T=int
           ]
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(53,35): warning C4244: +=: преобразование "float" в "T", возможна потеря данных
+D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(83,35): warning C4244: +=: преобразование "float" в "T", возможна потеря данных
           with
           [
               T=int
           ]
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(66,29): warning C4244: =: преобразование "float" в "T", возможна потеря данных
+D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(96,29): warning C4244: =: преобразование "float" в "T", возможна потеря данных
           with
           [
               T=int
           ]
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(67,35): warning C4244: +=: преобразование "float" в "T", возможна потеря данных
+D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(97,35): warning C4244: +=: преобразование "float" в "T", возможна потеря данных
           with
           [
               T=int

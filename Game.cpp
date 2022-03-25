@@ -5,7 +5,7 @@ void Game::initWindow()
 {
 	//this->window.create(sf::VideoMode::getDesktopMode(), )
 	this->window.create(sf::VideoMode(800, 600), "Platformer", sf::Style::Close | sf::Style::Titlebar);
-	this->window.setFramerateLimit(144);
+	this->window.setFramerateLimit(60);
 }
 
 void Game::initPlayer()

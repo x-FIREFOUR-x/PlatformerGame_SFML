@@ -23,19 +23,23 @@ private:
 
 	//Physics
 	sf::Vector2f velocity;
+	float velocityMax;
+	float velocityMin;
 	float acceleration;
-	float deceleration;
+	float drag;
 
 
 	void initVariables();
 	void initTexture();
 	void initSprite();
 	void initAnimations();
+	void initPhysics();
 
 public:
 	Player();
 	virtual ~Player();
 
+	void move(const float dir_x, const float dir_y);
 	void updatePhysics();
 	void updateAnimations();
 	void updateMovement();
