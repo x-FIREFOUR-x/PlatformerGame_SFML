@@ -23,6 +23,7 @@ void Player::initSprite()
 void Player::initAnimations()
 {
 	this->animationTimer.restart();
+	this->animationSwitch = true;
 }
 
 void Player::initPhysics()
@@ -31,6 +32,8 @@ void Player::initPhysics()
 	this->velocityMin = 1.f;
 	this->acceleration = 2.f;
 	this->drag = 0.93f;
+	this->gravity = 4.f;
+	this->velocityMaxY = 15.f;
 }
 
 Player::Player()
@@ -46,12 +49,27 @@ Player::~Player()
 {
 }
 
+const bool& Player::getAnimSwitch()
+{
+	bool anim_swith = this->animationSwitch;
+
+	if (this->animationSwitch)
+		this->animationSwitch = false;
+
+	return anim_swith;
+}
+
+void Player::resetAnimationTimer()
+{
+	this->animationTimer.restart();
+	this->animationSwitch = true;
+}
+
 void Player::move(const float dir_x, const float dir_y)
 {
 		//increase speed
 	this->velocity.x += dir_x * this->acceleration;
-	//this->velocity.y += dir_y * this->acceleration;
-
+	
 		//limit max velocity
 	if (std::abs(this->velocity.x) > this->velocityMax)
 		this->velocity.x = this->velocityMax * ((this->velocity.x < 0.f) ? -1.f : 1.f);
@@ -59,6 +77,12 @@ void Player::move(const float dir_x, const float dir_y)
 
 void Player::updatePhysics()
 {
+	/*	//Gravity
+	this->velocity.y += 1.0 * this->gravity;
+	if (std::abs(this->velocity.y) > this->velocityMaxY)
+		this->velocity.y = this->velocityMaxY * ((this->velocity.y < 0.f) ? -1.f : 1.f);
+	*/
+
 		//dicrease speed
 	this->velocity *= this->drag;
 
@@ -77,7 +101,7 @@ void Player::updateAnimations()
 
 	if (this->animState == PLAYER_ANIMATION_STATE::IDLE)
 	{
-		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.2f)
+		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.2f || this->getAnimSwitch())
 		{
 			this->currentFrame.top = 0.f;
 			this->currentFrame.left += 40.f;
@@ -91,7 +115,7 @@ void Player::updateAnimations()
 	else if (this->animState == PLAYER_ANIMATION_STATE::MOVING_RIGHT)
 	{
 
-		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.1f)
+		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.1f || this->getAnimSwitch())
 		{
 			this->currentFrame.top = 50.f;
 			this->currentFrame.left += 40.f;
