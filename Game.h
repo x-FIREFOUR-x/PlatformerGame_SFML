@@ -20,6 +20,7 @@ public:
 	const sf::RenderWindow& getWindow()const;
 
 	void updatePlayer();
+	void updateCollision();
 	void update();
 
 	void renderPlayer();

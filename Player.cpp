@@ -59,6 +59,21 @@ const bool& Player::getAnimSwitch()
 	return anim_swith;
 }
 
+const sf::FloatRect Player::getGlobalBounds() const
+{
+	return this->sprite.getGlobalBounds(); 
+}
+
+void Player::setPosition(const float x, const float y)
+{
+	this->sprite.setPosition(x, y);
+}
+
+void Player::resetVelosityY()
+{
+	this->velocity.y = 0.f;
+}
+
 void Player::resetAnimationTimer()
 {
 	this->animationTimer.restart();
@@ -77,11 +92,11 @@ void Player::move(const float dir_x, const float dir_y)
 
 void Player::updatePhysics()
 {
-	/*	//Gravity
+	//Gravity
 	this->velocity.y += 1.0 * this->gravity;
 	if (std::abs(this->velocity.y) > this->velocityMaxY)
 		this->velocity.y = this->velocityMaxY * ((this->velocity.y < 0.f) ? -1.f : 1.f);
-	*/
+	
 
 		//dicrease speed
 	this->velocity *= this->drag;

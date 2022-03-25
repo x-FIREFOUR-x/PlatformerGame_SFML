@@ -34,6 +34,19 @@ void Game::updatePlayer()
 	this->player->update();
 }
 
+void Game::updateCollision()
+{
+	//Collision bottom of screen;
+	if (this->player->getGlobalBounds().top + this->player->getGlobalBounds().height > this->window.getSize().y)
+	{
+		this->player->resetVelosityY();
+		this->player->setPosition(
+			this->player->getGlobalBounds().left,
+			this->window.getSize().y - this->player->getGlobalBounds().height
+		);
+	}
+}
+
 void Game::update()
 {
 	while (this->window.pollEvent(this->ev))
@@ -58,6 +71,8 @@ void Game::update()
 			
 	}
 	this->updatePlayer();
+
+	this->updateCollision();
 }
 
 void Game::renderPlayer()
