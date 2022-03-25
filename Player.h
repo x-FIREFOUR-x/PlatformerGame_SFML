@@ -31,6 +31,8 @@ private:
 	float gravity;
 	float velocityMaxY;
 
+
+
 	void initVariables();
 	void initTexture();
 	void initSprite();
@@ -44,6 +46,8 @@ public:
 		//Accessors
 	const bool& getAnimSwitch();
 	const sf::FloatRect getGlobalBounds() const;
+	const sf::Vector2f getPosition() const;
+
 
 		//Modifiers
 	void setPosition(const float x, const float y);
