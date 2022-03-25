@@ -1,1 +1,2 @@
-PlatformerGame
+C++ SFML Game
+Simple Platformer
