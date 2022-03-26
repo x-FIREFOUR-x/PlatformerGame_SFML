@@ -109,7 +109,7 @@ void Player::defState()
 		this->animState = PLAYER_ANIMATION_STATE::MOVING_RIGHT;
 	else if (velocity.x < 0)
 		this->animState = PLAYER_ANIMATION_STATE::MOVING_LEFT;
-	else
+	else if (velocity.x == 0 && velocity.y == 0 && animState != PLAYER_ANIMATION_STATE::JUMPING)
 		this->animState = PLAYER_ANIMATION_STATE::IDLE;
 
 }
