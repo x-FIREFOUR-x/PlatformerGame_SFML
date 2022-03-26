@@ -34,6 +34,7 @@ void Player::initPhysics()
 	this->drag = 0.87f;
 	this->gravity = 4.f;
 	this->velocityMaxY = 15.f;
+	this->velocityJump = -50.f;
 }
 
 Player::Player()
@@ -93,14 +94,20 @@ void Player::move(const float dir_x, const float dir_y)
 		//limit max velocity
 	if (std::abs(this->velocity.x) > this->velocityMax)
 		this->velocity.x = this->velocityMax * ((this->velocity.x < 0.f) ? -1.f : 1.f);
+
+	this->velocity.y = dir_y * this->velocityJump;
+
 }
+
 
 void Player::updatePhysics()
 {
 	//Gravity
 	this->velocity.y += 1.0 * this->gravity;
-	if (std::abs(this->velocity.y) > this->velocityMaxY)
-		this->velocity.y = this->velocityMaxY * ((this->velocity.y < 0.f) ? -1.f : 1.f);
+	/*if (std::abs(this->velocity.y) > this->velocityMaxY)
+		this->velocity.y = this->velocityMaxY * ((this->velocity.y < 0.f) ? -1.f : 1.f);*/
+	if (this->velocity.y > this->velocityMaxY)
+		this->velocity.y = this->velocityMaxY;
 	
 
 		//dicrease speed
@@ -151,7 +158,7 @@ void Player::updateAnimations()
 	else if (this->animState == PLAYER_ANIMATION_STATE::MOVING_LEFT)
 	{
 
-		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.1f || this->getAnimSwitch())
+		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.1f || this->getAnimSwitch() )
 		{
 			this->currentFrame.top = 50.f;
 			this->currentFrame.left += 40.f;
@@ -165,6 +172,23 @@ void Player::updateAnimations()
 		this->sprite.setScale(-3.f, 3.f);
 		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 3.f, 0.f);
 	}
+	else if (this->animState == PLAYER_ANIMATION_STATE::JUMPING)
+	{
+		/*
+		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.1f || this->getAnimSwitch())
+		{
+			this->currentFrame.top = 50.f;
+			this->currentFrame.left += 40.f;
+			if (this->currentFrame.left >= 360.f)
+				this->currentFrame.left = 0;
+
+			this->animationTimer.restart();
+			this->sprite.setTextureRect(this->currentFrame);
+
+		}
+		this->sprite.setScale(-3.f, 3.f);
+		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 3.f, 0.f);*/
+	}
 	else
 		this->animationTimer.restart();
 	
@@ -173,6 +197,7 @@ void Player::updateAnimations()
 
 void Player::updateMovement()
 {
+
 	this->animState = PLAYER_ANIMATION_STATE::IDLE;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
@@ -184,6 +209,12 @@ void Player::updateMovement()
 	{
 		this->move(1.f, 0.f);
 		this->animState = PLAYER_ANIMATION_STATE::MOVING_RIGHT;
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && animState != PLAYER_ANIMATION_STATE::JUMPING && animState != PLAYER_ANIMATION_STATE::FALING)
+	{
+		this->move(0, 1.f);
+		this->animState = PLAYER_ANIMATION_STATE::JUMPING;
 	}
 
 	/*

@@ -31,6 +31,8 @@ private:
 	float gravity;
 	float velocityMaxY;
 
+	float velocityJump;
+
 
 
 	void initVariables();
@@ -56,6 +58,7 @@ public:
 		//Functions
 	void resetAnimationTimer();
 	void move(const float dir_x, const float dir_y);
+	void jump(const float dir_y);
 	void updatePhysics();
 	void updateAnimations();
 	void updateMovement();
