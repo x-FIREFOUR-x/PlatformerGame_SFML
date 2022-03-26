@@ -63,7 +63,8 @@ void Game::update()
 					this->ev.key.code == sf::Keyboard::A ||
 					this->ev.key.code == sf::Keyboard::D ||
 					this->ev.key.code == sf::Keyboard::W ||
-					this->ev.key.code == sf::Keyboard::S
+					this->ev.key.code == sf::Keyboard::S ||
+					this->ev.key.code == sf::Keyboard::Space
 				)
 			)
 		{

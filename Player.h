@@ -29,7 +29,7 @@ private:
 	float acceleration;
 	float drag;
 	float gravity;
-	float velocityMaxY;
+	float velocityMaxFall;
 
 	float velocityJump;
 
@@ -58,7 +58,8 @@ public:
 		//Functions
 	void resetAnimationTimer();
 	void move(const float dir_x, const float dir_y);
-	void jump(const float dir_y);
+	void defState();
+	
 	void updatePhysics();
 	void updateAnimations();
 	void updateMovement();
