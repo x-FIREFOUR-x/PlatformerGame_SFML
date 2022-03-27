@@ -52,6 +52,7 @@ void Game::updateCollision()
 		);
 	}
 
+	tileMap.updateCollision(player);
 }
 
 void Game::update()

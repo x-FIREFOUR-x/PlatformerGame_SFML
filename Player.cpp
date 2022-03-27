@@ -269,6 +269,23 @@ void Player::render(sf::RenderTarget& target)
 	circ.setFillColor(sf::Color::Red);
 	circ.setRadius(2.f);
 	circ.setPosition(this->sprite.getPosition());
-
 	target.draw(circ);
+
+	sf::CircleShape circ2;
+	circ2.setFillColor(sf::Color::Red);
+	circ2.setRadius(2.f);
+	circ2.setPosition(sf::Vector2f(this->sprite.getPosition().x + this->sprite.getGlobalBounds().width, this->sprite.getPosition().y));
+	target.draw(circ2);
+
+	sf::CircleShape circ3;
+	circ3.setFillColor(sf::Color::Red);
+	circ3.setRadius(2.f);
+	circ3.setPosition(sf::Vector2f(this->sprite.getPosition().x + this->sprite.getGlobalBounds().width, this->sprite.getPosition().y + this->sprite.getGlobalBounds().height));
+	target.draw(circ3);
+
+	sf::CircleShape circ4;
+	circ4.setFillColor(sf::Color::Red);
+	circ4.setRadius(2.f);
+	circ4.setPosition(sf::Vector2f(this->sprite.getPosition().x , this->sprite.getPosition().y + this->sprite.getGlobalBounds().height));
+	target.draw(circ4);
 }

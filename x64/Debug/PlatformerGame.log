@@ -1,6 +1,2 @@
 ﻿  TileMap.cpp
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\TileMap.cpp(17,52): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\TileMap.cpp(17,36): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\TileMap.cpp(19,56): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\TileMap.cpp(19,36): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
   PlatformerGame.vcxproj -> D:\project c++\testSFML\PlatformerGame\x64\Debug\PlatformerGame.exe
