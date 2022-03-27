@@ -23,15 +23,15 @@ private:
 	bool animationSwitch;
 
 	//Physics
-	sf::Vector2f velocity;
-	float velocityMax;
-	float velocityMin;
+	sf::Vector2f speed;
+	float speedMax;
+	float speedMin;
 	float acceleration;
 	float drag;
 	float gravity;
-	float velocityMaxFall;
+	float speedMaxFall;
 
-	float velocityJump;
+	float speedJump;
 
 
 

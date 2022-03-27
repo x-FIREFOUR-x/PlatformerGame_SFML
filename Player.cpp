@@ -28,13 +28,16 @@ void Player::initAnimations()
 
 void Player::initPhysics()
 {
-	this->velocityMax = 20.f;
-	this->velocityMin = 2.f;
+	this->speedMax = 20.f;
+	this->speedMin = 2.f;
+
 	this->acceleration = 3.2f;
-	this->drag = 0.87f;
+	this->drag = 0.90f;
+
 	this->gravity = 4.f;
-	this->velocityMaxFall = 15.f;
-	this->velocityJump = -50.f;
+
+	this->speedMaxFall = 15.f;
+	this->speedJump = -50.f;
 }
 
 Player::Player()
@@ -77,7 +80,7 @@ void Player::setPosition(const float x, const float y)
 
 void Player::resetVelosityY()
 {
-	this->velocity.y = 0.f;
+	this->speed.y = 0.f;
 }
 
 void Player::resetAnimationTimer()
@@ -89,27 +92,27 @@ void Player::resetAnimationTimer()
 void Player::move(const float dir_x, const float dir_y)
 {
 		//increase speed
-	this->velocity.x += dir_x * this->acceleration;
+	this->speed.x += dir_x * this->acceleration;
 	
-		//limit max velocity
-	if (std::abs(this->velocity.x) > this->velocityMax)
-		this->velocity.x = this->velocityMax * ((this->velocity.x < 0.f) ? -1.f : 1.f);
+		//limit max speed
+	if (std::abs(this->speed.x) > this->speedMax)
+		this->speed.x = this->speedMax * ((this->speed.x < 0.f) ? -1.f : 1.f);
 
-	this->velocity.y = dir_y * this->velocityJump;
+	this->speed.y = dir_y * this->speedJump;
 
 }
 
 void Player::defState()
 {
-	if (velocity.y > 0)
+	if (speed.y > 0)
 		this->animState = PLAYER_ANIMATION_STATE::FALING;
-	else if (velocity.y < 0)
+	else if (speed.y < 0)
 		this->animState = PLAYER_ANIMATION_STATE::JUMPING;
-	else if (velocity.x > 0 && animState != PLAYER_ANIMATION_STATE::JUMPING)
+	else if (speed.x > 0 && animState != PLAYER_ANIMATION_STATE::JUMPING)
 		this->animState = PLAYER_ANIMATION_STATE::MOVING_RIGHT;
-	else if (velocity.x < 0 && animState != PLAYER_ANIMATION_STATE::JUMPING)
+	else if (speed.x < 0 && animState != PLAYER_ANIMATION_STATE::JUMPING)
 		this->animState = PLAYER_ANIMATION_STATE::MOVING_LEFT;
-	else if (velocity.x == 0 && velocity.y == 0 && animState != PLAYER_ANIMATION_STATE::JUMPING)
+	else if (speed.x == 0 && speed.y == 0 && animState != PLAYER_ANIMATION_STATE::JUMPING)
 		this->animState = PLAYER_ANIMATION_STATE::IDLE;
 
 }
@@ -118,24 +121,24 @@ void Player::defState()
 void Player::updatePhysics()
 {
 	//Gravity
-	this->velocity.y += 1.0 * this->gravity;
-	/*if (std::abs(this->velocity.y) > this->velocityMaxFall)
-		this->velocity.y = this->velocityMaxFall * ((this->velocity.y < 0.f) ? -1.f : 1.f);*/
-	if (this->velocity.y > this->velocityMaxFall)
-		this->velocity.y = this->velocityMaxFall;
+	this->speed.y += 1.0 * this->gravity;
+	/*if (std::abs(this->speed.y) > this->speedMaxFall)
+		this->speed.y = this->speedMaxFall * ((this->speed.y < 0.f) ? -1.f : 1.f);*/
+	if (this->speed.y > this->speedMaxFall)
+		this->speed.y = this->speedMaxFall;
 	
 
 		//dicrease speed
-	this->velocity *= this->drag;
+	this->speed *= this->drag;
 
-		//limit min velocity
-	if (std::abs(this->velocity.x) < this->velocityMin)
-		this->velocity.x = 0.f;
-	if (std::abs(this->velocity.y) < this->velocityMin)
-		this->velocity.y = 0.f;
+		//limit min speed
+	if (std::abs(this->speed.x) < this->speedMin)
+		this->speed.x = 0.f;
+	if (std::abs(this->speed.y) < this->speedMin)
+		this->speed.y = 0.f;
 
 		//move
-	this->sprite.move(this->velocity);
+	this->sprite.move(this->speed);
 }
 
 void Player::updateAnimations()
@@ -227,9 +230,6 @@ void Player::updateAnimations()
 
 void Player::updateMovement()
 {
-	//std::cout << animState <<std:: endl;
-	//this->animState = PLAYER_ANIMATION_STATE::IDLE;
-
 	this->defState();
 
 	if ((animState != PLAYER_ANIMATION_STATE::JUMPING) && (animState != PLAYER_ANIMATION_STATE::FALING))
@@ -246,26 +246,12 @@ void Player::updateMovement()
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
 		{
-			std::cout << animState << std::endl;
-			std::cout << velocity.x << " " << velocity.y << std::endl;
 			this->move(0, 1.f);
 			this->animState = PLAYER_ANIMATION_STATE::JUMPING;
-			std::cout << velocity.x << " " << velocity.y << std::endl << std::endl;
 		}
 	}
 	
 
-	/*
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
-	{
-		this->sprite.move(0.f, -1.f);
-		
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-	{
-		this->sprite.move(0.f, 1.f);
-		
-	}*/
 }
 
 void Player::update()
