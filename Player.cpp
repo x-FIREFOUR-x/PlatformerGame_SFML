@@ -105,9 +105,9 @@ void Player::defState()
 		this->animState = PLAYER_ANIMATION_STATE::FALING;
 	else if (velocity.y < 0)
 		this->animState = PLAYER_ANIMATION_STATE::JUMPING;
-	else if (velocity.x > 0)
+	else if (velocity.x > 0 && animState != PLAYER_ANIMATION_STATE::JUMPING)
 		this->animState = PLAYER_ANIMATION_STATE::MOVING_RIGHT;
-	else if (velocity.x < 0)
+	else if (velocity.x < 0 && animState != PLAYER_ANIMATION_STATE::JUMPING)
 		this->animState = PLAYER_ANIMATION_STATE::MOVING_LEFT;
 	else if (velocity.x == 0 && velocity.y == 0 && animState != PLAYER_ANIMATION_STATE::JUMPING)
 		this->animState = PLAYER_ANIMATION_STATE::IDLE;
@@ -140,7 +140,7 @@ void Player::updatePhysics()
 
 void Player::updateAnimations()
 {
-	this->defState();
+	
 
 	if (this->animState == PLAYER_ANIMATION_STATE::IDLE)
 	{
@@ -207,7 +207,7 @@ void Player::updateAnimations()
 	else if (this->animState == PLAYER_ANIMATION_STATE::FALING)
 	{
 
-		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.2f || this->getAnimSwitch())
+		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.1f || this->getAnimSwitch())
 		{
 			this->currentFrame.top = 200.f;
 			this->currentFrame.left += 40.f;
@@ -230,21 +230,30 @@ void Player::updateMovement()
 	//std::cout << animState <<std:: endl;
 	//this->animState = PLAYER_ANIMATION_STATE::IDLE;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+	this->defState();
+
+	if ((animState != PLAYER_ANIMATION_STATE::JUMPING) && (animState != PLAYER_ANIMATION_STATE::FALING))
 	{
-		this->move(-1.f, 0.f);
-		this->animState = PLAYER_ANIMATION_STATE::MOVING_LEFT;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+		{
+			this->move(-1.f, 0.f);
+			this->animState = PLAYER_ANIMATION_STATE::MOVING_LEFT;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+		{
+			this->move(1.f, 0.f);
+			this->animState = PLAYER_ANIMATION_STATE::MOVING_RIGHT;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+		{
+			std::cout << animState << std::endl;
+			std::cout << velocity.x << " " << velocity.y << std::endl;
+			this->move(0, 1.f);
+			this->animState = PLAYER_ANIMATION_STATE::JUMPING;
+			std::cout << velocity.x << " " << velocity.y << std::endl << std::endl;
+		}
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
-	{
-		this->move(1.f, 0.f);
-		this->animState = PLAYER_ANIMATION_STATE::MOVING_RIGHT;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && (animState != PLAYER_ANIMATION_STATE::JUMPING) && (animState != PLAYER_ANIMATION_STATE::FALING))
-	{
-		this->move(0, 1.f);
-		this->animState = PLAYER_ANIMATION_STATE::JUMPING;
-	}
+	
 
 	/*
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))

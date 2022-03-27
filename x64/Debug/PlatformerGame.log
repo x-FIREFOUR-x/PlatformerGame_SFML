@@ -1,7 +1,4 @@
-﻿  stdafx.cpp
-  Game.cpp
-  PlatformerGame.cpp
-  Player.cpp
+﻿  Player.cpp
 D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(121,41): warning C4244: +=: преобразование "double" в "T", возможна потеря данных
           with
           [
@@ -57,8 +54,5 @@ D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(215,31): warnin
           [
               T=int
           ]
-  Tile.cpp
-  TileMap.cpp
-  Создание кода...
 D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(60): warning C4172: возвращение адреса локальной или временной переменной : anim_swith
   PlatformerGame.vcxproj -> D:\project c++\testSFML\PlatformerGame\x64\Debug\PlatformerGame.exe
