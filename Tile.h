@@ -2,11 +2,11 @@
 class Tile
 {
 private:
-	sf::Sprite sprite;
+	sf::RectangleShape shape;
 	const bool damaging;
 
 public:
-	Tile(sf:: Texture& texure_sheet, sf::IntRect texture_rect, bool damaging = false);
+	Tile(unsigned x, unsigned y, bool damaging = false);
 	const sf::FloatRect GlobalBounds() const;
 
 	void update();

@@ -1,16 +1,17 @@
 #include "stdafx.h"
 #include "Tile.h"
 
-Tile::Tile(sf::Texture& texure_sheet, sf::IntRect texture_rect, bool damaging)
+Tile::Tile(unsigned x, unsigned y, bool damaging)
     :damaging(damaging)
 {
-    this->sprite.setTexture(texure_sheet);
-    this->sprite.setTextureRect(texture_rect);
+    this->shape.setFillColor(sf::Color::Green);
+    this->shape.setSize(sf::Vector2f(100.f, 30.f));
+    this->shape.setPosition(x, y);
 }
 
 const sf::FloatRect Tile::GlobalBounds() const
 {
-    return this->sprite.getGlobalBounds();
+    return this->shape.getGlobalBounds();
 }
 
 void Tile::update()
@@ -19,5 +20,5 @@ void Tile::update()
 
 void Tile::render(sf::RenderTarget& target)
 {
-    target.draw(this->sprite);
+    target.draw(this->shape);
 }

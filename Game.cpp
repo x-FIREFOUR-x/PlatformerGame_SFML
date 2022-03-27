@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Game.h"
 
+
 void Game::initWindow()
 {
 	//this->window.create(sf::VideoMode::getDesktopMode(), )
@@ -13,10 +14,15 @@ void Game::initPlayer()
 	this->player = new Player();
 }
 
+void Game::initTileMap()
+{
+}
+
 Game::Game()
 {
 	this->initWindow();
 	this->initPlayer();
+	this->initTileMap();
 }
 
 Game::~Game()
@@ -87,6 +93,8 @@ void Game::render()
 	this->window.clear();
 
 	this->renderPlayer();
+
+	this->tileMap.render(this->window);
 
 	this->window.display();
 }

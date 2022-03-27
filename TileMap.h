@@ -9,10 +9,10 @@ public:
 	TileMap();
 	~TileMap();
 
-	void addTile(unsigned x, unsigned y);
-	void removeTile(unsigned x, unsigned y);
+	void addTile(unsigned i, unsigned j, unsigned x, unsigned y);
+	void removeTile(unsigned i, unsigned j);
 
 	void update();
-	void render();
+	void render(sf::RenderTarget& target);
 };
 

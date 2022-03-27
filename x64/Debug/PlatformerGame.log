@@ -1,58 +1,6 @@
-﻿  Player.cpp
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(124,38): warning C4244: +=: преобразование "double" в "T", возможна потеря данных
-          with
-          [
-              T=float
-          ]
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(152,29): warning C4244: =: преобразование "float" в "T", возможна потеря данных
-          with
-          [
-              T=int
-          ]
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(153,35): warning C4244: +=: преобразование "float" в "T", возможна потеря данных
-          with
-          [
-              T=int
-          ]
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(166,29): warning C4244: =: преобразование "float" в "T", возможна потеря данных
-          with
-          [
-              T=int
-          ]
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(167,35): warning C4244: +=: преобразование "float" в "T", возможна потеря данных
-          with
-          [
-              T=int
-          ]
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(182,29): warning C4244: =: преобразование "float" в "T", возможна потеря данных
-          with
-          [
-              T=int
-          ]
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(183,35): warning C4244: +=: преобразование "float" в "T", возможна потеря данных
-          with
-          [
-              T=int
-          ]
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(199,29): warning C4244: =: преобразование "float" в "T", возможна потеря данных
-          with
-          [
-              T=int
-          ]
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(215,29): warning C4244: =: преобразование "float" в "T", возможна потеря данных
-          with
-          [
-              T=int
-          ]
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(216,35): warning C4244: +=: преобразование "float" в "T", возможна потеря данных
-          with
-          [
-              T=int
-          ]
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(218,31): warning C4244: =: преобразование "float" в "T", возможна потеря данных
-          with
-          [
-              T=int
-          ]
-D:\project c++\testSFML\PlatformerGame\PlatformerGame\Player.cpp(63): warning C4172: возвращение адреса локальной или временной переменной : anim_swith
+﻿  TileMap.cpp
+D:\project c++\testSFML\PlatformerGame\PlatformerGame\TileMap.cpp(17,52): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+D:\project c++\testSFML\PlatformerGame\PlatformerGame\TileMap.cpp(17,36): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+D:\project c++\testSFML\PlatformerGame\PlatformerGame\TileMap.cpp(19,56): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+D:\project c++\testSFML\PlatformerGame\PlatformerGame\TileMap.cpp(19,36): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
   PlatformerGame.vcxproj -> D:\project c++\testSFML\PlatformerGame\x64\Debug\PlatformerGame.exe
