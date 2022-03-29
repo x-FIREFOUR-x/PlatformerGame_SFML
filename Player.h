@@ -6,7 +6,9 @@ enum PLAYER_ANIMATION_STATE
 	MOVING_LEFT,
 	MOVING_RIGHT,
 	JUMPING,
-	FALING
+	FALING,
+	FALING_LEFT,
+	FALING_RIGHT
 };
 
 class Player
@@ -24,14 +26,23 @@ private:
 
 	//Physics
 	sf::Vector2f speed;
+
+				//parameters running
 	float speedMax;
 	float speedMin;
 	float acceleration;
 	float drag;
+
+				//parameters falling and jumping
 	float gravity;
 	float speedMaxFall;
-
 	float speedJump;
+
+				//parameters falling right or left
+	float speedFallX;
+	float accelerationFallX;
+	float speedFallXMax;
+	float speedFallXMin;
 
 
 
@@ -58,6 +69,7 @@ public:
 		//Functions
 	void resetAnimationTimer();
 	void move(const float dir_x, const float dir_y);
+	void moveFalling(const float dir_x);
 	void defState();
 	
 	void updatePhysics();

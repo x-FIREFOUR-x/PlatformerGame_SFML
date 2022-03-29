@@ -38,6 +38,10 @@ void Player::initPhysics()
 
 	this->speedMaxFall = 15.f;
 	this->speedJump = -50.f;
+
+	this->accelerationFallX = 1.f;
+	this->speedFallXMin = 1.f;
+	this->speedFallXMax = 10.f;
 }
 
 Player::Player()
@@ -102,10 +106,25 @@ void Player::move(const float dir_x, const float dir_y)
 
 }
 
+void Player::moveFalling(const float dir_x)
+{
+	//increase speed
+	this->speed.x += dir_x * this->accelerationFallX;
+
+	//limit max speed
+	if (std::abs(this->speed.x) > this->speedMaxFall)
+		this->speed.x = this->speedMaxFall * ((this->speed.x < 0.f) ? -1.f : 1.f);
+
+}
+
 void Player::defState()
 {
-	if (speed.y > 0)
+	if (speed.y > 0 && speed.x == 0)
 		this->animState = PLAYER_ANIMATION_STATE::FALING;
+	else if (speed.y > 0 && speed.x > 0)
+		this->animState = PLAYER_ANIMATION_STATE::FALING_RIGHT;
+	else if (speed.y > 0 && speed.x < 0)
+		this->animState = PLAYER_ANIMATION_STATE::FALING_LEFT;
 	else if (speed.y < 0)
 		this->animState = PLAYER_ANIMATION_STATE::JUMPING;
 	else if (speed.x > 0 && animState != PLAYER_ANIMATION_STATE::JUMPING)
@@ -232,7 +251,7 @@ void Player::updateMovement()
 {
 	this->defState();
 
-	if ((animState != PLAYER_ANIMATION_STATE::JUMPING) && (animState != PLAYER_ANIMATION_STATE::FALING))
+	if ((animState == PLAYER_ANIMATION_STATE::IDLE) || (animState == PLAYER_ANIMATION_STATE::MOVING_LEFT) || (animState == PLAYER_ANIMATION_STATE::MOVING_RIGHT))
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
 		{
@@ -248,6 +267,21 @@ void Player::updateMovement()
 		{
 			this->move(0, 1.f);
 			this->animState = PLAYER_ANIMATION_STATE::JUMPING;
+		}
+	}
+	else if (animState != PLAYER_ANIMATION_STATE::JUMPING)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+		{
+			this->moveFalling(-1.f);
+			std::cout << "left" << "\n";
+			this->animState = PLAYER_ANIMATION_STATE::FALING_LEFT;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+		{
+			this->moveFalling(1.f);
+			std::cout << "right" << "\n";
+			this->animState = PLAYER_ANIMATION_STATE::FALING_RIGHT;
 		}
 	}
 	

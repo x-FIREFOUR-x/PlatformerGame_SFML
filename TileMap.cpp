@@ -21,8 +21,10 @@ TileMap::TileMap()
 	}*/
 
 	tiles.push_back(std::vector<Tile*>());
-	addTile(0, 0, 200, 500);
-	addTile(0, 1, 300, 300);
+	//addTile(0, 0, 200, 500);
+	//addTile(0, 1, 300, 300);
+	//addTile(0, 2, 0, 300);
+	addTile(0, 0, 0, 200);
 }
 
 TileMap::~TileMap()
