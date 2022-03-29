@@ -93,9 +93,9 @@ void Game::render()
 {
 	this->window.clear();
 
-	this->renderPlayer();
-
 	this->tileMap.render(this->window);
+
+	this->renderPlayer();
 
 	this->window.display();
 }

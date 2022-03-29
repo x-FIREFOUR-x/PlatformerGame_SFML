@@ -72,8 +72,10 @@ void TileMap::updateCollision(Player* player)
 				);
 			}
 
+
 				//collision top player with bottom tile  (player jump head to tile)
-			if (player->getPosition().y  > tiles[i][j]->GlobalBounds().top
+			if (
+				player->getPosition().y  > tiles[i][j]->GlobalBounds().top
 				&& player->getPosition().y < tiles[i][j]->GlobalBounds().top + tiles[i][j]->GlobalBounds().height
 			    && player->getPosition().x + player->getGlobalBounds().width * 0.5 > tiles[i][j]->GlobalBounds().left
 				&& player->getPosition().x + player->getGlobalBounds().width * 0.5 < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width
@@ -85,6 +87,27 @@ void TileMap::updateCollision(Player* player)
 					tiles[i][j]->GlobalBounds().top  + tiles[i][j]->GlobalBounds().height 
 				);
 			}
+
+
+				//Collision player with left tile and right tile
+			if (
+				player->getPosition().y + player->getGlobalBounds().height > tiles[i][j]->GlobalBounds().top
+			    && player->getPosition().y < tiles[i][j]->GlobalBounds().top + tiles[i][j]->GlobalBounds().height
+				&& player->getPosition().x + player->getGlobalBounds().width > tiles[i][j]->GlobalBounds().left
+				&& player->getPosition().x  < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width
+			)
+			{
+				float x;
+				if (player->getPosition().x < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width / 2)
+					x = tiles[i][j]->GlobalBounds().left - player->getGlobalBounds().width ;
+				else
+					x = tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width;
+				player->setPosition(
+					x,
+					player->getPosition().y
+				);
+			}
+			
 		}
 	}
 	
