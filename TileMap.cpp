@@ -23,8 +23,6 @@ TileMap::TileMap()
 	tiles.push_back(std::vector<Tile*>());
 	addTile(0, 0, 200, 500);
 	addTile(0, 1, 300, 300);
-	//addTile(0, 0, 400, 400);
-	//addTile(0, 0, 400, 400);
 }
 
 TileMap::~TileMap()
@@ -57,60 +55,73 @@ void TileMap::updateCollision(Player* player)
 		for (int j = 0; j < tiles[i].size(); j++)
 		{
 				//collision bottom player with top tile  (player jump in tile)
-			if(
-				player->getPosition().y + player->getGlobalBounds().height > tiles[i][j]->GlobalBounds().top 
-				&& player->getPosition().y + player->getGlobalBounds().height < tiles[i][j]->GlobalBounds().top + tiles[i][j]->GlobalBounds().height
-				&& player->getPosition().x + player->getGlobalBounds().width * 0.5 > tiles[i][j]->GlobalBounds().left
-				&& player->getPosition().x + player->getGlobalBounds().width * 0.5 < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width
-			)
-			{
-				//std::cout << tiles[i][j]->GlobalBounds().top << " " << player->getGlobalBounds().top << " " << player->getGlobalBounds().height << "\n";
-				player->resetVelosityY();
-				player->setPosition(
-					player->getPosition().x,
-					tiles[i][j]->GlobalBounds().top - player->getGlobalBounds().height
-				);
-			}
-
+			this->CollisionTopTile(player, i, j);
 
 				//collision top player with bottom tile  (player jump head to tile)
-			if (
-				player->getPosition().y  > tiles[i][j]->GlobalBounds().top
-				&& player->getPosition().y < tiles[i][j]->GlobalBounds().top + tiles[i][j]->GlobalBounds().height
-			    && player->getPosition().x + player->getGlobalBounds().width * 0.5 > tiles[i][j]->GlobalBounds().left
-				&& player->getPosition().x + player->getGlobalBounds().width * 0.5 < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width
-			)
-			{
-				player->resetVelosityY();
-				player->setPosition(
-					player->getPosition().x,
-					tiles[i][j]->GlobalBounds().top  + tiles[i][j]->GlobalBounds().height 
-				);
-			}
-
+			this->CollisionBottomTile(player, i, j);
 
 				//Collision player with left tile and right tile
-			if (
-				player->getPosition().y + player->getGlobalBounds().height > tiles[i][j]->GlobalBounds().top
-			    && player->getPosition().y < tiles[i][j]->GlobalBounds().top + tiles[i][j]->GlobalBounds().height
-				&& player->getPosition().x + player->getGlobalBounds().width > tiles[i][j]->GlobalBounds().left
-				&& player->getPosition().x  < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width
-			)
-			{
-				float x;
-				if (player->getPosition().x < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width / 2)
-					x = tiles[i][j]->GlobalBounds().left - player->getGlobalBounds().width ;
-				else
-					x = tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width;
-				player->setPosition(
-					x,
-					player->getPosition().y
-				);
-			}
+			this->CollisionSidesTile(player, i, j);
 			
 		}
 	}
 	
+}
+
+void TileMap::CollisionTopTile(Player* player, unsigned i, unsigned j)
+{
+	if (
+		player->getPosition().y + player->getGlobalBounds().height > tiles[i][j]->GlobalBounds().top
+		&& player->getPosition().y + player->getGlobalBounds().height < tiles[i][j]->GlobalBounds().top + tiles[i][j]->GlobalBounds().height
+		&& player->getPosition().x + player->getGlobalBounds().width * 0.5 > tiles[i][j]->GlobalBounds().left
+		&& player->getPosition().x + player->getGlobalBounds().width * 0.5 < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width
+	)
+	{
+		//std::cout << tiles[i][j]->GlobalBounds().top << " " << player->getGlobalBounds().top << " " << player->getGlobalBounds().height << "\n";
+		player->resetVelosityY();
+		player->setPosition(
+			player->getPosition().x,
+			tiles[i][j]->GlobalBounds().top - player->getGlobalBounds().height
+		);
+	}
+}
+
+void TileMap::CollisionBottomTile(Player* player, unsigned i, unsigned j)
+{
+	if (
+		player->getPosition().y > tiles[i][j]->GlobalBounds().top
+		&& player->getPosition().y < tiles[i][j]->GlobalBounds().top + tiles[i][j]->GlobalBounds().height
+		&& player->getPosition().x + player->getGlobalBounds().width * 0.5 > tiles[i][j]->GlobalBounds().left
+		&& player->getPosition().x + player->getGlobalBounds().width * 0.5 < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width
+	)
+	{
+		player->resetVelosityY();
+		player->setPosition(
+			player->getPosition().x,
+			tiles[i][j]->GlobalBounds().top + tiles[i][j]->GlobalBounds().height
+		);
+	}
+}
+
+void TileMap::CollisionSidesTile(Player* player, unsigned i, unsigned j)
+{
+	if (
+		player->getPosition().y + player->getGlobalBounds().height > tiles[i][j]->GlobalBounds().top
+		&& player->getPosition().y < tiles[i][j]->GlobalBounds().top + tiles[i][j]->GlobalBounds().height
+		&& player->getPosition().x + player->getGlobalBounds().width > tiles[i][j]->GlobalBounds().left
+		&& player->getPosition().x < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width
+	)
+	{
+		float x;
+		if (player->getPosition().x < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width / 2)
+			x = tiles[i][j]->GlobalBounds().left - player->getGlobalBounds().width;
+		else
+			x = tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width;
+		player->setPosition(
+			x,
+			player->getPosition().y
+		);
+	}
 }
 
 void TileMap::update()

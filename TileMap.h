@@ -14,8 +14,12 @@ public:
 	void removeTile(unsigned i, unsigned j);
 
 	void updateCollision(Player* player);
+	void CollisionTopTile(Player* player, unsigned i, unsigned j);
+	void CollisionBottomTile(Player* player, unsigned i, unsigned j);
+	void CollisionSidesTile(Player* player, unsigned i, unsigned j);
 
 	void update();
+
 	void render(sf::RenderTarget& target);
 };
 
