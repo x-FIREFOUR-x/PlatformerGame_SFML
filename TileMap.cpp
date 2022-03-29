@@ -22,7 +22,9 @@ TileMap::TileMap()
 
 	tiles.push_back(std::vector<Tile*>());
 	addTile(0, 0, 200, 500);
-	//addTile(0, 0, 400, 480);
+	addTile(0, 1, 300, 300);
+	//addTile(0, 0, 400, 400);
+	//addTile(0, 0, 400, 400);
 }
 
 TileMap::~TileMap()
@@ -54,11 +56,10 @@ void TileMap::updateCollision(Player* player)
 	{
 		for (int j = 0; j < tiles[i].size(); j++)
 		{
+				//collision bottom player with top tile  (player jump in tile)
 			if(
-				player->getPosition().y + player->getGlobalBounds().height > tiles[i][j]->GlobalBounds().top + 3.6
-				&& player->getPosition().y + player->getGlobalBounds().height < tiles[i][j]->GlobalBounds().top + tiles[i][j]->GlobalBounds().height - 3.6
-				//&& player->getPosition().x + player->getGlobalBounds().width  > tiles[i][j]->GlobalBounds().left
-				//&& player->getPosition().x < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width
+				player->getPosition().y + player->getGlobalBounds().height > tiles[i][j]->GlobalBounds().top 
+				&& player->getPosition().y + player->getGlobalBounds().height < tiles[i][j]->GlobalBounds().top + tiles[i][j]->GlobalBounds().height
 				&& player->getPosition().x + player->getGlobalBounds().width * 0.5 > tiles[i][j]->GlobalBounds().left
 				&& player->getPosition().x + player->getGlobalBounds().width * 0.5 < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width
 			)
@@ -68,6 +69,20 @@ void TileMap::updateCollision(Player* player)
 				player->setPosition(
 					player->getPosition().x,
 					tiles[i][j]->GlobalBounds().top - player->getGlobalBounds().height
+				);
+			}
+
+				//collision top player with bottom tile  (player jump head to tile)
+			if (player->getPosition().y  > tiles[i][j]->GlobalBounds().top
+				&& player->getPosition().y < tiles[i][j]->GlobalBounds().top + tiles[i][j]->GlobalBounds().height
+			    && player->getPosition().x + player->getGlobalBounds().width * 0.5 > tiles[i][j]->GlobalBounds().left
+				&& player->getPosition().x + player->getGlobalBounds().width * 0.5 < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width
+			)
+			{
+				player->resetVelosityY();
+				player->setPosition(
+					player->getPosition().x,
+					tiles[i][j]->GlobalBounds().top  + tiles[i][j]->GlobalBounds().height 
 				);
 			}
 		}
