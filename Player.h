@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Bullet.h"
 enum PLAYER_ANIMATION_STATE
 {
 	IDLE = 0,
@@ -75,6 +75,7 @@ public:
 	void updatePhysics();
 	void updateAnimations();
 	void updateMovement();
+	void updateFire();
 	void update();
 
 	void render(sf::RenderTarget& target);

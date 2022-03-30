@@ -241,6 +241,32 @@ void Player::updateAnimations()
 
 		}
 	}
+	else if (this->animState == PLAYER_ANIMATION_STATE::FALING_LEFT)
+	{
+		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.1f || this->getAnimSwitch())
+		{
+			this->currentFrame.top = 200.f;
+			this->currentFrame.left = 40.f;
+
+			this->animationTimer.restart();
+			this->sprite.setTextureRect(this->currentFrame);
+		}
+		this->sprite.setScale(-3.f, 3.f);
+		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 3.f, 0.f);
+	}
+	else if (this->animState == PLAYER_ANIMATION_STATE::FALING_RIGHT)
+	{
+		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.1f || this->getAnimSwitch())
+		{
+			this->currentFrame.top = 200.f;
+			this->currentFrame.left = 40.f;
+
+			this->animationTimer.restart();
+			this->sprite.setTextureRect(this->currentFrame);
+		}
+		this->sprite.setScale(3.f, 3.f);
+		this->sprite.setOrigin(0.f, 0.f);
+	}
 	else
 		this->animationTimer.restart();
 	
@@ -274,13 +300,11 @@ void Player::updateMovement()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
 		{
 			this->moveFalling(-1.f);
-			std::cout << "left" << "\n";
 			this->animState = PLAYER_ANIMATION_STATE::FALING_LEFT;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
 		{
 			this->moveFalling(1.f);
-			std::cout << "right" << "\n";
 			this->animState = PLAYER_ANIMATION_STATE::FALING_RIGHT;
 		}
 	}
@@ -288,9 +312,18 @@ void Player::updateMovement()
 
 }
 
+void Player::updateFire()
+{
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+
+	}
+}
+
 void Player::update()
 {
 	this->updateMovement();
+	this->updateFire();
 	this->updateAnimations();
 	this->updatePhysics();
 }
