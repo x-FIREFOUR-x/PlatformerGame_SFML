@@ -2,6 +2,7 @@
 //#include "stdafx.h"
 #include "Player.h"
 #include "TileMap.h"
+#include "Bullet.h"
 
 class Game
 {
@@ -13,6 +14,11 @@ private:
 
 	Player* player;
 
+	//Attack
+	std::vector<Bullet*> bullets;
+	float attackCooldown;
+	float attackCooldownMax;
+
 	void initWindow();
 	void initPlayer();
 	void initTileMap();
@@ -23,6 +29,7 @@ public:
 
 	const sf::RenderWindow& getWindow()const;
 
+	void pressFire();
 	void updatePlayer();
 	void updateCollision();
 	void update();

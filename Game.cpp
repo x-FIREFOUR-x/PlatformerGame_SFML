@@ -12,6 +12,9 @@ void Game::initWindow()
 void Game::initPlayer()
 {
 	this->player = new Player();
+
+	this->attackCooldownMax = 10.f;
+	this->attackCooldown = this->attackCooldownMax;
 }
 
 void Game::initTileMap()
@@ -28,12 +31,49 @@ Game::Game()
 Game::~Game()
 {
 	delete this->player;
+
 }
 
 const sf::RenderWindow& Game::getWindow() const
 {
 	return this->window;
 }
+
+
+
+void Game::pressFire()
+{
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->attackCooldown >= this->attackCooldownMax)
+	{
+		if (player->getAnimState() == PLAYER_ANIMATION_STATE::MOVING_RIGHT || player->getAnimState() == PLAYER_ANIMATION_STATE::MOVING_LEFT || player->getAnimState() == PLAYER_ANIMATION_STATE::IDLE)
+		{
+			this->attackCooldown = 0;
+			Bullet* bullet;
+			if (player->getSpriteOrigin().x == 0)
+			{
+				bullet = new Bullet(
+					1,
+					player->getGlobalBounds().left + player->getGlobalBounds().width,
+					player->getGlobalBounds().top + player->getGlobalBounds().height / 2,
+					25
+				);
+				bullets.push_back(bullet);
+			}
+			else
+			{
+				bullet = new Bullet(
+					-1,
+					player->getGlobalBounds().left,
+					player->getGlobalBounds().top + player->getGlobalBounds().height / 2,
+					25
+				);
+				bullets.push_back(bullet);
+			}
+		}
+	}
+	this->attackCooldown++;
+}
+
 
 void Game::updatePlayer()
 {
@@ -81,6 +121,14 @@ void Game::update()
 	}
 	this->updatePlayer();
 
+	this->pressFire();
+
+
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		this->bullets[i]->update();
+	}
+
 	this->updateCollision();
 }
 
@@ -96,6 +144,12 @@ void Game::render()
 	this->tileMap.render(this->window);
 
 	this->renderPlayer();
+
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		this->bullets[i]->render(this->window);
+	}
+
 
 	this->window.display();
 }

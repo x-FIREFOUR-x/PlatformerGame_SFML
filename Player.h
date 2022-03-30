@@ -43,11 +43,6 @@ private:
 	float speedFallXMin;
 
 
-	//Attack
-	std::vector<Bullet*> bullets;
-	float attackCooldown;
-	float attackCooldownMax;
-
 	void initVariables();
 	void initTexture();
 	void initSprite();
@@ -62,7 +57,8 @@ public:
 	const bool& getAnimSwitch();
 	const sf::FloatRect getGlobalBounds() const;
 	const sf::Vector2f getPosition() const;
-
+	const short getAnimState() const;
+	const sf::Vector2f getSpriteOrigin() const;
 
 		//Modifiers
 	void setPosition(const float x, const float y);
@@ -77,7 +73,6 @@ public:
 	void updatePhysics();
 	void updateAnimations();
 	void updateMovement();
-	void updateFire();
 	void update();
 
 	void render(sf::RenderTarget& target);
