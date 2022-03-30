@@ -14,11 +14,8 @@ private:
 
 	Player* player;
 
-	//Attack
 	std::vector<Bullet*> bullets;
-	float attackCooldown;
-	float attackCooldownMax;
-
+	
 	void initWindow();
 	void initPlayer();
 	void initTileMap();
@@ -32,6 +29,7 @@ public:
 	void pressFire();
 	void updatePlayer();
 	void updateCollision();
+	void updateBullets();
 	void update();
 
 	void renderPlayer();

@@ -13,8 +13,6 @@ void Game::initPlayer()
 {
 	this->player = new Player();
 
-	this->attackCooldownMax = 10.f;
-	this->attackCooldown = this->attackCooldownMax;
 }
 
 void Game::initTileMap()
@@ -43,35 +41,31 @@ const sf::RenderWindow& Game::getWindow() const
 
 void Game::pressFire()
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->attackCooldown >= this->attackCooldownMax)
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->player->canAttack())
 	{
-		if (player->getAnimState() == PLAYER_ANIMATION_STATE::MOVING_RIGHT || player->getAnimState() == PLAYER_ANIMATION_STATE::MOVING_LEFT || player->getAnimState() == PLAYER_ANIMATION_STATE::IDLE)
+		Bullet* bullet;
+		if (player->getSpriteOrigin().x == 0)
 		{
-			this->attackCooldown = 0;
-			Bullet* bullet;
-			if (player->getSpriteOrigin().x == 0)
-			{
-				bullet = new Bullet(
-					1,
-					player->getGlobalBounds().left + player->getGlobalBounds().width,
-					player->getGlobalBounds().top + player->getGlobalBounds().height / 2,
-					25
-				);
-				bullets.push_back(bullet);
-			}
-			else
-			{
-				bullet = new Bullet(
-					-1,
-					player->getGlobalBounds().left,
-					player->getGlobalBounds().top + player->getGlobalBounds().height / 2,
-					25
-				);
-				bullets.push_back(bullet);
-			}
+			bullet = new Bullet(
+				1,
+				player->getGlobalBounds().left + player->getGlobalBounds().width,
+				player->getGlobalBounds().top + player->getGlobalBounds().height / 2,
+				25
+			);
+			bullets.push_back(bullet);
 		}
+		else
+		{
+			bullet = new Bullet(
+				-1,
+				player->getGlobalBounds().left,
+				player->getGlobalBounds().top + player->getGlobalBounds().height / 2,
+				25
+			);
+			bullets.push_back(bullet);
+		}
+
 	}
-	this->attackCooldown++;
 }
 
 
@@ -93,6 +87,23 @@ void Game::updateCollision()
 	}
 
 	tileMap.updateCollision(player);
+}
+
+void Game::updateBullets()
+{
+	unsigned counter = 0;
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		this->bullets[i]->update();
+
+		if (bullets[i]->getBounds().left >  window.getSize().x || bullets[i]->getBounds().left  + bullets[i]->getBounds().width < 0)
+		{
+			delete this->bullets.at(counter);
+			this->bullets.erase(this->bullets.begin() + counter);
+			--counter;
+		}
+		++counter;
+	}
 }
 
 void Game::update()
@@ -123,11 +134,7 @@ void Game::update()
 
 	this->pressFire();
 
-
-	for (int i = 0; i < bullets.size(); i++)
-	{
-		this->bullets[i]->update();
-	}
+	this->updateBullets();
 
 	this->updateCollision();
 }

@@ -5,6 +5,8 @@ void Player::initVariables()
 {
 	this->animState = PLAYER_ANIMATION_STATE::IDLE;
 
+	this->attackCooldownMax = 10.f;
+	this->attackCooldown = this->attackCooldownMax;
 }
 
 void Player::initTexture()
@@ -86,6 +88,20 @@ const short Player::getAnimState() const
 const sf::Vector2f Player::getSpriteOrigin() const
 {
 	return this->sprite.getOrigin();
+}
+
+const bool Player::canAttack()
+{
+	if (this->animState == PLAYER_ANIMATION_STATE::MOVING_RIGHT || this->animState == PLAYER_ANIMATION_STATE::MOVING_LEFT || this->animState == PLAYER_ANIMATION_STATE::IDLE)
+	{
+		if (this->attackCooldown >= this->attackCooldownMax)
+		{
+			this->attackCooldown = 0.f;
+			return true;
+		}
+	}
+	
+	return false;
 }
 
 void Player::setPosition(const float x, const float y)
@@ -322,12 +338,19 @@ void Player::updateMovement()
 
 }
 
+void Player::updateAttack()
+{
+	if (this->attackCooldown < this->attackCooldownMax)
+		this->attackCooldown += 1.f;
+}
+
 
 void Player::update()
 {
 	this->updateMovement();
 	this->updateAnimations();
 	this->updatePhysics();
+	this->updateAttack();
 }
 
 void Player::render(sf::RenderTarget& target)

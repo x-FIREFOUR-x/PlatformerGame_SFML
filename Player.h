@@ -42,6 +42,11 @@ private:
 	float speedFallXMax;
 	float speedFallXMin;
 
+	//Atack
+	float attackCooldown;
+	float attackCooldownMax;
+
+
 
 	void initVariables();
 	void initTexture();
@@ -59,6 +64,7 @@ public:
 	const sf::Vector2f getPosition() const;
 	const short getAnimState() const;
 	const sf::Vector2f getSpriteOrigin() const;
+	const bool canAttack();
 
 		//Modifiers
 	void setPosition(const float x, const float y);
@@ -73,6 +79,7 @@ public:
 	void updatePhysics();
 	void updateAnimations();
 	void updateMovement();
+	void updateAttack();
 	void update();
 
 	void render(sf::RenderTarget& target);
