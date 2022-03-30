@@ -1,5 +1,6 @@
 #pragma once
 #include "Bullet.h"
+
 enum PLAYER_ANIMATION_STATE
 {
 	IDLE = 0,
@@ -17,27 +18,24 @@ private:
 	sf::Sprite sprite;
 	sf::Texture textureSheet;
 
-	sf::Clock animationTimer;
-
+	
 	//Animations
+	sf::Clock animationTimer;
 	short animState;
 	sf::IntRect currentFrame;
 	bool animationSwitch;
 
 	//Physics
 	sf::Vector2f speed;
-
 				//parameters running
 	float speedMax;
 	float speedMin;
 	float acceleration;
 	float drag;
-
 				//parameters falling and jumping
 	float gravity;
 	float speedMaxFall;
 	float speedJump;
-
 				//parameters falling right or left
 	float speedFallX;
 	float accelerationFallX;
@@ -45,6 +43,10 @@ private:
 	float speedFallXMin;
 
 
+	//Attack
+	std::vector<Bullet*> bullets;
+	float attackCooldown;
+	float attackCooldownMax;
 
 	void initVariables();
 	void initTexture();

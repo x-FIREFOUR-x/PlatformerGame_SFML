@@ -4,6 +4,9 @@
 void Player::initVariables()
 {
 	this->animState = PLAYER_ANIMATION_STATE::IDLE;
+
+	this->attackCooldownMax = 8.f;
+	this->attackCooldown = this->attackCooldownMax;
 }
 
 void Player::initTexture()
@@ -314,10 +317,35 @@ void Player::updateMovement()
 
 void Player::updateFire()
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->attackCooldown >= this->attackCooldownMax)
 	{
-
+		if (this->animState == PLAYER_ANIMATION_STATE::MOVING_RIGHT || this->animState == PLAYER_ANIMATION_STATE::MOVING_LEFT || this->animState == PLAYER_ANIMATION_STATE::IDLE)
+		{
+			this->attackCooldown = 0;
+			Bullet* bullet;
+			if (this->sprite.getOrigin().x == 0)
+			{
+				bullet = new Bullet(
+					1,
+					this->getGlobalBounds().left + this->getGlobalBounds().width,
+					this->getGlobalBounds().top + this->getGlobalBounds().height / 2,
+					25
+				);
+				bullets.push_back(bullet);
+			}
+			else
+			{
+				bullet = new Bullet(
+					-1,
+					this->getGlobalBounds().left,
+					this->getGlobalBounds().top + this->getGlobalBounds().height / 2,
+					25
+				);
+				bullets.push_back(bullet);
+			}
+		}
 	}
+	this->attackCooldown++;
 }
 
 void Player::update()
@@ -326,11 +354,21 @@ void Player::update()
 	this->updateFire();
 	this->updateAnimations();
 	this->updatePhysics();
+
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		this->bullets[i]->update();
+	}
 }
 
 void Player::render(sf::RenderTarget& target)
 {
 	target.draw(this->sprite);
+
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		this->bullets[i]->render(target);
+	}
 
 	sf::CircleShape circ;
 	circ.setFillColor(sf::Color::Red);

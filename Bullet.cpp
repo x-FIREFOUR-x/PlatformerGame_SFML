@@ -4,7 +4,7 @@
 void Bullet::initShape()
 {
 	this->shape.setFillColor(sf::Color::Red);
-	this->shape.setRadius(2.f);
+	this->shape.setRadius(8.f);
 }
 
 Bullet::Bullet()
@@ -39,7 +39,7 @@ void Bullet::update()
 	this->shape.move(this->movementSpeed * this->direction);
 }
 
-void Bullet::render(sf::RenderTarget* target)
+void Bullet::render(sf::RenderTarget& target)
 {
-	target->draw(this->shape);
+	target.draw(this->shape);
 }
