@@ -69,13 +69,15 @@ public:
 		//Modifiers
 	void setPosition(const float x, const float y);
 	void resetVelosityY();
+	
 
 		//Functions
 	void resetAnimationTimer();
 	void move(const float dir_x, const float dir_y);
 	void moveFalling(const float dir_x);
 	void defState();
-	
+	void animFire();
+
 	void updatePhysics();
 	void updateAnimations();
 	void updateMovement();

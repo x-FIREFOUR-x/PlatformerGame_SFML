@@ -1,6 +1,8 @@
  #include "stdafx.h"
 #include "Player.h"
 
+#include "windows.h"
+
 void Player::initVariables()
 {
 	this->animState = PLAYER_ANIMATION_STATE::IDLE;
@@ -162,6 +164,15 @@ void Player::defState()
 		this->animState = PLAYER_ANIMATION_STATE::IDLE;
 
 }
+
+void Player::animFire()
+{
+	this->currentFrame.top = 250.f;
+	this->currentFrame.left = 0.f;
+	this->sprite.setTextureRect(this->currentFrame);
+	this->animationTimer.restart();
+}
+
 
 
 void Player::updatePhysics()

@@ -43,6 +43,7 @@ void Game::pressFire()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->player->canAttack())
 	{
+		this->player->animFire();
 		Bullet* bullet;
 		if (player->getSpriteOrigin().x == 0)
 		{
