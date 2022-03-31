@@ -30,6 +30,7 @@ public:
 	void updatePlayer();
 	void updateCollision();
 	void updateBullets();
+
 	void update();
 
 	void renderPlayer();

@@ -21,10 +21,10 @@ TileMap::TileMap()
 	}*/
 
 	tiles.push_back(std::vector<Tile*>());
-	//addTile(0, 0, 200, 500);
-	//addTile(0, 1, 300, 300);
+	addTile(0, 0, 200, 500);
+	addTile(0, 1, 300, 300);
 	//addTile(0, 2, 0, 300);
-	addTile(0, 0, 0, 200);
+	addTile(0, 2, 0, 200);
 }
 
 TileMap::~TileMap()
@@ -124,6 +124,22 @@ void TileMap::CollisionSidesTile(Player* player, unsigned i, unsigned j)
 			player->getPosition().y
 		);
 	}
+}
+
+bool TileMap::CollisionBullet(Bullet* bullet)
+{
+	for (int i = 0; i < tiles.size(); i++)
+	{
+		for (int j = 0; j < tiles[i].size(); j++)
+		{
+			if (this->tiles[i][j]->GlobalBounds().intersects(bullet->getBounds()))
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
 }
 
 void TileMap::update()

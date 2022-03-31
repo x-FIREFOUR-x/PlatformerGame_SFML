@@ -18,6 +18,8 @@ public:
 	void CollisionBottomTile(Player* player, unsigned i, unsigned j);
 	void CollisionSidesTile(Player* player, unsigned i, unsigned j);
 
+	bool CollisionBullet(Bullet* bullet);
+
 	void update();
 
 	void render(sf::RenderTarget& target);

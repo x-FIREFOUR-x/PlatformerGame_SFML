@@ -96,15 +96,30 @@ void Game::updateBullets()
 	{
 		this->bullets[i]->update();
 
+				//Collision border window
 		if (bullets[i]->getBounds().left >  window.getSize().x || bullets[i]->getBounds().left  + bullets[i]->getBounds().width < 0)
 		{
 			delete this->bullets.at(counter);
 			this->bullets.erase(this->bullets.begin() + counter);
 			--counter;
 		}
+				//Collision Tile
+		else
+		{
+			bool CollisionTile = this->tileMap.CollisionBullet(bullets[i]);
+			if (CollisionTile)
+			{
+				delete this->bullets.at(counter);
+				this->bullets.erase(this->bullets.begin() + counter);
+				--counter;
+			}
+		}
+				
 		++counter;
 	}
 }
+
+
 
 void Game::update()
 {
