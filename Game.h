@@ -28,7 +28,9 @@ public:
 
 	void pressFire();
 	void updatePlayer();
-	void updateCollision();
+
+	void updateCollisionWindow();
+	void updateCollisionTileMap();
 	void updateBullets();
 
 	void update();

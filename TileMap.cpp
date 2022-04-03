@@ -23,8 +23,8 @@ TileMap::TileMap()
 	tiles.push_back(std::vector<Tile*>());
 	addTile(0, 0, 200, 500);
 	addTile(0, 1, 300, 300);
-	//addTile(0, 2, 0, 300);
-	addTile(0, 2, 0, 200);
+	addTile(0, 2, 0, 400);
+	addTile(0, 3, 400, 200);
 }
 
 TileMap::~TileMap()
@@ -91,8 +91,8 @@ void TileMap::CollisionTopTile(Player* player, unsigned i, unsigned j)
 void TileMap::CollisionBottomTile(Player* player, unsigned i, unsigned j)
 {
 	if (
-		player->getPosition().y > tiles[i][j]->GlobalBounds().top
-		&& player->getPosition().y < tiles[i][j]->GlobalBounds().top + tiles[i][j]->GlobalBounds().height
+		player->getPosition().y >= tiles[i][j]->GlobalBounds().top
+		&& player->getPosition().y <= tiles[i][j]->GlobalBounds().top + tiles[i][j]->GlobalBounds().height
 		&& player->getPosition().x + player->getGlobalBounds().width * 0.5 > tiles[i][j]->GlobalBounds().left
 		&& player->getPosition().x + player->getGlobalBounds().width * 0.5 < tiles[i][j]->GlobalBounds().left + tiles[i][j]->GlobalBounds().width
 	)

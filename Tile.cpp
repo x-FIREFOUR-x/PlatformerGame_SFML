@@ -5,7 +5,7 @@ Tile::Tile(unsigned x, unsigned y, bool damaging)
     :damaging(damaging)
 {
     this->shape.setFillColor(sf::Color::Green);
-    this->shape.setSize(sf::Vector2f(200.f, 30.f));
+    this->shape.setSize(sf::Vector2f(200.f, 25.f));
     this->shape.setPosition(x, y);
 }
 

@@ -75,9 +75,9 @@ void Game::updatePlayer()
 	this->player->update();
 }
 
-void Game::updateCollision()
+void Game::updateCollisionWindow()
 {
-	//Collision bottom of screen;
+		//Collision bottom of screen;
 	if (this->player->getPosition().y + this->player->getGlobalBounds().height > this->window.getSize().y)
 	{
 		this->player->resetVelosityY();
@@ -87,6 +87,23 @@ void Game::updateCollision()
 		);
 	}
 
+		////Collision top of screen
+	if (this->player->getPosition().y < 0)
+	{
+		this->player->resetVelosityY();
+		this->player->setPosition(this->player->getPosition().x, 0);
+	}
+
+		//Collision left side of screen
+	if (this->player->getPosition().x < 0)
+	{
+		this->player->setPosition(0, this->player->getPosition().y);
+	}
+
+}
+
+void Game::updateCollisionTileMap()
+{
 	tileMap.updateCollision(player);
 }
 
@@ -152,7 +169,8 @@ void Game::update()
 
 	this->updateBullets();
 
-	this->updateCollision();
+	this->updateCollisionWindow();
+	this->updateCollisionTileMap();
 }
 
 void Game::renderPlayer()
