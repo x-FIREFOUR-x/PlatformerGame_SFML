@@ -14,6 +14,11 @@ const sf::FloatRect Tile::GlobalBounds() const
     return this->shape.getGlobalBounds();
 }
 
+void Tile::move(float x, float y)
+{
+    this->shape.move(x, y);
+}
+
 
 
 void Tile::update()

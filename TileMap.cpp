@@ -50,6 +50,17 @@ void TileMap::removeTile(unsigned i, unsigned j)
 	tiles[i].erase(tiles[i].begin() + j);
 }
 
+void TileMap::moveTileMap(float x)
+{
+	for (int i = 0; i < tiles.size(); i++)
+	{
+		for (int j = 0; j < tiles[i].size(); j++)
+		{
+			tiles[i][j]->move(x, 0);
+		}
+	}
+}
+
 void TileMap::updateCollision(Player* player)
 {
 	for (int i = 0; i < tiles.size(); i++)

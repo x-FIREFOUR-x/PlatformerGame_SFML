@@ -8,7 +8,7 @@ private:
 public:
 	Tile(unsigned x, unsigned y, bool damaging = false);
 	const sf::FloatRect GlobalBounds() const;
-
+	void move(float x, float y);
 	
 
 	void update();

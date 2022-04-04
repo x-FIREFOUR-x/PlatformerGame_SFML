@@ -12,6 +12,7 @@ public:
 
 	void addTile(unsigned i, unsigned j, unsigned x, unsigned y);
 	void removeTile(unsigned i, unsigned j);
+	void moveTileMap(float x);
 
 	void updateCollision(Player* player);
 	void CollisionTopTile(Player* player, unsigned i, unsigned j);

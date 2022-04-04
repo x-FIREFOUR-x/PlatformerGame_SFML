@@ -200,8 +200,6 @@ void Player::updatePhysics()
 
 void Player::updateAnimations()
 {
-	
-
 	if (this->animState == PLAYER_ANIMATION_STATE::IDLE)
 	{
 		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.2f || this->getAnimSwitch())

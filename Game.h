@@ -33,6 +33,8 @@ public:
 	void updateCollisionTileMap();
 	void updateBullets();
 
+	void updateMapWorld();
+
 	void update();
 
 	void renderPlayer();

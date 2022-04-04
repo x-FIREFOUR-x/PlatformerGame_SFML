@@ -137,6 +137,21 @@ void Game::updateBullets()
 	}
 }
 
+void Game::updateMapWorld()
+{
+	float limit = this->window.getSize().x * 0.6;
+	if (this->player->getPosition().x > limit)
+	{
+		float x = this->player->getPosition().x + this->player->getGlobalBounds().width - limit;
+		this->tileMap.moveTileMap(-x/10);
+		this->player->setPosition(
+			this->window.getSize().x * 0.6,
+			this->player->getPosition().y
+		);
+	}
+
+}
+
 
 
 void Game::update()
@@ -171,6 +186,8 @@ void Game::update()
 
 	this->updateCollisionWindow();
 	this->updateCollisionTileMap();
+
+	this->updateMapWorld();
 }
 
 void Game::renderPlayer()
