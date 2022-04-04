@@ -142,8 +142,8 @@ void Game::updateMapWorld()
 	float limit = this->window.getSize().x * 0.6;
 	if (this->player->getPosition().x > limit)
 	{
-		float x = this->player->getPosition().x + this->player->getGlobalBounds().width - limit;
-		this->tileMap.moveTileMap(-x/10);
+		float x = this->player->getPosition().x - limit;
+		this->tileMap.moveTileMap(-x/2);
 		this->player->setPosition(
 			this->window.getSize().x * 0.6,
 			this->player->getPosition().y
@@ -181,7 +181,6 @@ void Game::update()
 	this->updatePlayer();
 
 	this->pressFire();
-
 	this->updateBullets();
 
 	this->updateCollisionWindow();
